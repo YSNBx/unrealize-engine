@@ -30,8 +30,8 @@
 	--- ( ) Export force trails
 
 	- ( ) *Force Modules*
-	-- ( ) /Gravity/
-	--- ( ) Phase G1: Newtonian Gravity
+	-- ( ) *Gravity*
+	--- ( ) /Phase G1: Newtonian Gravity/
 	---- (x) 2-particle simulation
 	---- (x) Acceleration & integration
 	---- (x) Directional force calculation
@@ -40,26 +40,32 @@
 	---- (-) Softening to prevent infinity
 	---- (-) Energy conservation
 
-	--- ( ) *Phase G2: Relativistic Approximation*
+	--- ( ) /Phase G2: Newtonian Gravity/
+	---- ( ) Track kinetic energy per particle
+	---- ( ) Track potential energy between particle pairs
+	---- ( ) Print total energy per frame
+	---- ( ) Observe conservation or deviation
+
+	--- ( ) /Phase G3: Relativistic Approximation/
 	---- ( ) Model curvature as local field
 	---- ( ) Precession / time dilation (if applicable)
 
-	-- ( ) *Electromagnetism*
+	-- ( ) /Electromagnetism/
 	--- ( ) Positive/negative charge
 	--- ( ) Lorentz force: F = q(E + v × B)
 	--- ( ) Particle fields (E/B as vector fields)
 
-	-- ( ) *Quantum (Simplified QFT)*
+	-- ( ) /Quantum (Simplified QFT)/
 	--- ( ) Discrete energy packets
 	--- ( ) Collapse simulation (state decoherence)
 	--- ( ) Probabilistic particle movement
 
-	-- ( ) *Information/Entropy*
+	-- ( ) /Information/Entropy/
 	--- ( ) Decay forces
 	--- ( ) Data-flow inspired repulsion/attraction
 	--- ( ) Reversible systems test
 
-	- ( ) *Theory Integration*
+	- ( ) /Theory Integration/
 	-- ( ) Cross-reference with gravity.norg, quantum.norg, spacetime.norg
 	-- ( ) Document mismatches
 	-- ( ) Extract insight from divergence between code and theory
