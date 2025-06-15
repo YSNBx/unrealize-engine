@@ -34,14 +34,5 @@ fn main() {
     render_ascii(&particles, 40, 20, 0.1);
     std::thread::sleep(std::time::Duration::from_millis(5));
     println!();
-
-    // println!("Step {}:", step);
-    // for (i, p) in particles.iter().enumerate() {
-    //   print!(
-    //     "Particle {}: pos = ({:.3}, {:.3}), vel = ({:.3}, {:.3}) ",
-    //     i, p.position.x, p.position.y, p.velocity.x, p.velocity.y,
-    //   );
-    // }
-    // println!();
   }
 }
