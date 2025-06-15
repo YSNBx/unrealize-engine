@@ -1,0 +1,29 @@
+* Newtonian Gravity Theory
+
+** Overview
+	 Newtonian gravity describes the attractive force between two masses.
+	 It is a classical model that works well at low speeds and weak gravitational fields.
+
+** Scalar Formula
+	 F = G * (m1 * m2) / r^2
+
+	 Where:
+	 - F = magnitude of force
+	 - G = gravitational constant
+	 - m1, m2 = masses of the two bodies
+	 - r = distance between them
+
+** Vector Form
+	 To apply direction:
+	 - r̂ = normalize(pos2 - pos1)
+	 - F⃗ = r̂ * F
+
+** Assumptions and Limitations
+	 - Assumes instantaneous action at a distance
+	 - Does not account for time dilation or curvature
+	 - Breaks down near large masses or high speeds
+
+** Use Case in Engine
+	 This is the first force system to implement.
+	 It allows verifying engine loop, force calculation, and basic motion.
+

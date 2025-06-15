@@ -1,0 +1,35 @@
+* Implementation Notes- Newtonian Gravity System
+
+** Particle Design
+	 - (x) mass: f32
+	 - (x) position: Vec2
+	 - (x) velocity: Vec2
+	 - (x) acceleration: Vec2
+
+** Vec2
+	 - (x) x: f32 
+	 - (x) y: f32 
+
+** GravitySystem
+	 - (x) gravity_constant: f32
+	 - (x) Iterate over each unique pair of particles
+	 -- (x) Calculate direction vector (r̂ = normalize(pos_b - pos_a))
+	 -- (x) Compute distance r
+	 -- (x) Compute scalar force: F = G * m1 * m2 / r^2
+	 -- (x) Compute vector force: F⃗ = r̂ * F
+	 -- (x) Apply F⃗ to particle A (add to acceleration)
+	 -- (x) Apply -F⃗ to particle B (Newton’s third law)
+
+** Constants
+	 - G = 6.67430e-11 (optional: use G = 1 for abstract simulation)
+
+** Integration Loop
+	 - (x) For each particle:
+	 - (x) acceleration += total force / mass
+	 - (x) velocity += acceleration * dt
+	 - (x) position += velocity * dt
+
+** Notes
+	 - (x) Prevent divide-by-zero when r is very small (use softening factor?)
+	 - (x) Consider simple Vec2 struct (x: f32, y: f32) for now
+	 - (x) Use fixed timestep (e.g. dt = 0.01s)

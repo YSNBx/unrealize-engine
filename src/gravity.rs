@@ -1,0 +1,34 @@
+use crate::{particle::Particle, vec2::Vec2};
+
+pub struct GravitySystem {
+  pub gravity_constant: f32,
+}
+
+impl GravitySystem {
+  pub fn new(gravity_constant: f32) -> Self {
+    GravitySystem { gravity_constant }
+  }
+
+  pub fn apply(&self, particles: &mut [Particle]) {
+    let num_particles = particles.len();
+
+    for i in 0..num_particles {
+      for j in (i + 1)..num_particles {
+        let (a, b) = {
+          let (left, right) = particles.split_at_mut(j);
+          (&mut left[i], &mut right[0])
+        };
+
+        let direction_vector: Vec2 = b.position.sub(a.position);
+        let distance: f32 = direction_vector.length().max(0.01);
+
+        let force_magnitude: f32 = self.gravity_constant * a.mass * b.mass / (distance * distance);
+        let normalized_direction: Vec2 = direction_vector.normalize();
+        let force: Vec2 = normalized_direction.mul_scalar(force_magnitude);
+
+        a.apply_force(force);
+        b.apply_force(force.mul_scalar(-1.0));
+      }
+    }
+  }
+}
