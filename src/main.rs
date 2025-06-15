@@ -8,9 +8,9 @@ use crate::{energy::EnergyTracker, gravity::GravitySystem, particle::Particle, r
 
 fn main() {
   let mut particles: Vec<Particle> = Vec::new();
-  particles.push(Particle::new(1.0, [0.0, 0.0]));
-  particles.push(Particle::new(1.0, [3.0, 0.0]));
-  particles.push(Particle::new(1.0, [1.5, 0.866]));
+  particles.push(Particle::new(1.0, [0.0, 0.0], 0.05));
+  particles.push(Particle::new(1.0, [3.0, 0.0], 0.05));
+  particles.push(Particle::new(1.0, [1.5, 0.866], 0.05));
 
   let gravity: GravitySystem = GravitySystem::new(1.0);
   let dt: f32 = 0.001;
