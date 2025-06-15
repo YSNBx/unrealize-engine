@@ -5,6 +5,7 @@ pub struct Particle {
   pub position: Vec2,
   pub velocity: Vec2,
   pub acceleration: Vec2,
+  #[allow(dead_code)]
   pub radius: f32,
 }
 
