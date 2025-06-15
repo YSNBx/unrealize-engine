@@ -7,9 +7,9 @@ use crate::{gravity::GravitySystem, particle::Particle, render::render_ascii};
 
 fn main() {
   let mut particles: Vec<Particle> = Vec::new();
-  particles.push(Particle::new(1.0, [0.0, 0.0]));
-  particles.push(Particle::new(1.0, [3.0, 0.0]));
-  particles.push(Particle::new(1.0, [1.5, 0.866]));
+  particles.push(Particle::new(1.0, [0.0, 0.0], 0.05));
+  particles.push(Particle::new(1.0, [3.0, 0.0], 0.05));
+  particles.push(Particle::new(1.0, [1.5, 0.866], 0.05));
 
   // const GRAVITY_CONSTANT: f64 = 6.67430e-11;
 

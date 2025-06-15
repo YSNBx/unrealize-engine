@@ -5,15 +5,17 @@ pub struct Particle {
   pub position: Vec2,
   pub velocity: Vec2,
   pub acceleration: Vec2,
+  pub radius: f32,
 }
 
 impl Particle {
-  pub fn new(mass: f32, position: [f32; 2]) -> Self {
+  pub fn new(mass: f32, position: [f32; 2], radius: f32) -> Self {
     Particle {
       mass,
       position: Vec2::new(position[0], position[1]),
       velocity: Vec2::zero(),
       acceleration: Vec2::zero(),
+      radius,
     }
   }
 
