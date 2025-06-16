@@ -37,7 +37,7 @@
 	---- (x) Directional force calculation
 	---- (x) ASCII Renderer
 	---- (x) Add 3rd+ particles (multi-body)
-	---- (-) Softening to prevent infinity
+	---- (x) Softening to prevent infinity
 	---- (-) Energy conservation
 
 	--- ( ) /Phase G2: Newtonian Gravity Energy Tracking/
@@ -51,9 +51,10 @@
 	---- (x) Detect overlap using distance vs radius
 	---- (x) Apply repulsion forces
 	---- ( ) Refine stability of soft collision response
+	---- ( ) Replace soft repulsion with elastic collision (momentum exchange)
 
 	--- ( ) /Phase G4: Relativistic Approximation/
-	----- ( ) Model curvature as local field
+	---- ( ) Model curvature as local field
 	---- ( ) Precession / time dilation (if applicable)
 
 	-- ( ) /Electromagnetism/
