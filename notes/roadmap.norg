@@ -40,14 +40,20 @@
 	---- (-) Softening to prevent infinity
 	---- (-) Energy conservation
 
-	--- ( ) /Phase G2: Newtonian Gravity/
-	---- ( ) Track kinetic energy per particle
-	---- ( ) Track potential energy between particle pairs
-	---- ( ) Print total energy per frame
+	--- ( ) /Phase G2: Newtonian Gravity Energy Tracking/
+	---- (x) Track kinetic energy per particle
+	---- (x) Track potential energy between particle pairs
+	---- (x) Print total energy per frame
 	---- ( ) Observe conservation or deviation
 
-	--- ( ) /Phase G3: Relativistic Approximation/
-	---- ( ) Model curvature as local field
+	--- ( ) /Phase G3: Collision Handling/
+	---- (x) Add radius to particles
+	---- (x) Detect overlap using distance vs radius
+	---- (x) Apply repulsion forces
+	---- ( ) Refine stability of soft collision response
+
+	--- ( ) /Phase G4: Relativistic Approximation/
+	----- ( ) Model curvature as local field
 	---- ( ) Precession / time dilation (if applicable)
 
 	-- ( ) /Electromagnetism/
@@ -65,7 +71,15 @@
 	--- ( ) Data-flow inspired repulsion/attraction
 	--- ( ) Reversible systems test
 
-	- ( ) /Theory Integration/
+	- ( ) *Theory Integration*
 	-- ( ) Cross-reference with gravity.norg, quantum.norg, spacetime.norg
 	-- ( ) Document mismatches
 	-- ( ) Extract insight from divergence between code and theory
+
+	- ( ) *Phase 6: Grand Unification*
+	-- ( ) General Relativity approximation (beyond Newton)
+	-- ( ) Quantum model layering
+	-- ( ) Spacetime medium with stress/curvature modeling
+	-- ( ) Unify force modules into a testable simulation core
+	-- ( ) Design probe objects to test realism of universe rules
+

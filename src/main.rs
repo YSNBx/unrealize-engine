@@ -12,12 +12,12 @@ fn main() {
   particles.push(Particle::new(1.0, [3.0, 0.0], 0.2));
   particles.push(Particle::new(1.0, [1.5, 0.866], 0.2));
 
-  let gravity: GravitySystem = GravitySystem::new(1.0);
+  let gravity: GravitySystem = GravitySystem::new(1.0, 0.05, 500.0);
   let dt: f32 = 0.0005;
   let tracker = EnergyTracker::new(1.0);
   let initial_te = tracker.total_energy(&particles);
 
-  for step in 0..5000 {
+  for step in 0..10000 {
     gravity.apply(&mut particles);
 
     for particle in particles.iter_mut() {
