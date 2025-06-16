@@ -57,17 +57,17 @@
 	---- ( ) Model curvature as local field
 	---- ( ) Precession / time dilation (if applicable)
 
-	-- ( ) /Electromagnetism/
+	-- ( ) *Electromagnetism*
 	--- ( ) Positive/negative charge
 	--- ( ) Lorentz force: F = q(E + v × B)
 	--- ( ) Particle fields (E/B as vector fields)
 
-	-- ( ) /Quantum (Simplified QFT)/
+	-- ( ) *Quantum (Simplified QFT)*
 	--- ( ) Discrete energy packets
 	--- ( ) Collapse simulation (state decoherence)
 	--- ( ) Probabilistic particle movement
 
-	-- ( ) /Information/Entropy/
+	-- ( ) *Information Entropy*
 	--- ( ) Decay forces
 	--- ( ) Data-flow inspired repulsion/attraction
 	--- ( ) Reversible systems test
@@ -77,7 +77,7 @@
 	-- ( ) Document mismatches
 	-- ( ) Extract insight from divergence between code and theory
 
-	- ( ) *Phase 6: Grand Unification*
+	- ( ) /Phase 6: Grand Unification/
 	-- ( ) General Relativity approximation (beyond Newton)
 	-- ( ) Quantum model layering
 	-- ( ) Spacetime medium with stress/curvature modeling
