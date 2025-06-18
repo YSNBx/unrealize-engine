@@ -7,27 +7,42 @@
 	--- (x) Print state per frame
 	--- (x) ASCII Renderer
 
-	-- ( ) /Phase 2: Entity System/
+	-- ( ) /Phase 2: 2D Pixel Renderer/
+	--- ( ) Create window with `pixels` and `winit`
+	--- ( ) Convert world coords to screen space
+	--- ( ) Color-code particles by ID/mass/type
+	--- ( ) Scale & zoom support
+	--- ( ) Optional: vector trails or velocity arrows
+
+	-- ( ) /Phase 3: Entity System/
 	--- ( ) Massless entities
 	--- ( ) Static (immovable) entities
 	--- ( ) Spring-linked particles
 	--- ( ) Charge / type tags
 
-	-- ( ) /Phase 3: Force Abstraction/
+	-- ( ) /Phase 4: Force Abstraction/
 	--- ( ) Define Force trait
 	--- ( ) Plug-in force system via trait objects
 	--- ( ) Layer multiple forces
 
-	-- ( ) /Phase 4: Grid + Spacetime System/
+	-- ( ) /Phase 5: Grid + Spacetime System/
 	--- ( ) 2D Grid representation
 	--- ( ) Field sampling (curvature/energy)
 	--- ( ) Localized interactions
 
-	-- ( ) /Phase 5: Output + Debug/
+	-- ( ) /Phase 6: Output + Debug/
 	--- ( ) CSV logger
 	--- ( ) Real-time visualization (CLI or GUI)
 	--- ( ) Snapshot/save state
 	--- ( ) Export force trails
+
+	-- ( ) /Phase 7: Interactive GUI + Sandbox Editor/
+	--- ( ) Visual particle placement (click-and-drag)
+	--- ( ) Attribute editor (mass, velocity, etc.)
+	--- ( ) Force toggles and parameter tuning
+	--- ( ) Scene saving/loading
+	--- ( ) Real-time graph overlays (energy, force lines)
+	--- ( ) Optional: 3D engine switch (post-core completion)
 
 	- ( ) *Force Modules*
 	-- ( ) *Gravity*
@@ -40,18 +55,18 @@
 	---- (x) Softening to prevent infinity
 	---- (-) Energy conservation
 
-	--- ( ) /Phase G2: Newtonian Gravity Energy Tracking/
+	--- (x) /Phase G2: Newtonian Gravity Energy Tracking/
 	---- (x) Track kinetic energy per particle
 	---- (x) Track potential energy between particle pairs
 	---- (x) Print total energy per frame
-	---- ( ) Observe conservation or deviation
+	---- (x) Observe conservation or deviation
 
 	--- ( ) /Phase G3: Collision Handling/
 	---- (x) Add radius to particles
 	---- (x) Detect overlap using distance vs radius
-	---- (x) Apply repulsion forces
-	---- ( ) Refine stability of soft collision response
-	---- ( ) Replace soft repulsion with elastic collision (momentum exchange)
+	---- (x) Apply repulsion forces (elastic collision)
+	---- (-) Refine stability of elastic collision response
+	---- (-) Optional: Implement soft repulsion model
 
 	--- ( ) /Phase G4: Relativistic Approximation/
 	---- ( ) Model curvature as local field
@@ -76,11 +91,3 @@
 	-- ( ) Cross-reference with gravity.norg, quantum.norg, spacetime.norg
 	-- ( ) Document mismatches
 	-- ( ) Extract insight from divergence between code and theory
-
-	- ( ) /Phase 6: Grand Unification/
-	-- ( ) General Relativity approximation (beyond Newton)
-	-- ( ) Quantum model layering
-	-- ( ) Spacetime medium with stress/curvature modeling
-	-- ( ) Unify force modules into a testable simulation core
-	-- ( ) Design probe objects to test realism of universe rules
-

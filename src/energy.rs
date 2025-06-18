@@ -23,7 +23,7 @@ impl EnergyTracker {
       for j in (i + 1)..len {
         let a = &particles[i];
         let b = &particles[j];
-        let r = b.position.sub(a.position).length().max(0.01);
+        let r = b.position.sub(a.position).vec_length().max(0.01);
         potential += -self.g * a.mass * b.mass / r;
       }
     }

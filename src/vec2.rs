@@ -25,12 +25,16 @@ impl Vec2 {
     Vec2::new(self.x * scalar, self.y * scalar)
   }
 
-  pub fn length(&self) -> f32 {
+  pub fn vec_length(&self) -> f32 {
     (self.x * self.x + self.y * self.y).sqrt()
   }
 
+  pub fn dot(&self, other: Vec2) -> f32 {
+    self.x * other.x + self.y * other.y
+  }
+
   pub fn normalize(&self) -> Vec2 {
-    let len = self.length();
+    let len = self.vec_length();
     if len == 0.0 {
       Vec2::zero()
     } else {
@@ -38,4 +42,3 @@ impl Vec2 {
     }
   }
 }
-

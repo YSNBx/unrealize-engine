@@ -1,7 +1,7 @@
 * Newtonian Gravity Theory
 
 ** Overview
-	 Newtonian gravity describes the attractive force between two masses.  
+	 Newtonian gravity describes the attractive force between two masses.
 	 It is a classical model that works well at low speeds and weak gravitational fields.
 
 ** Scalar Formula
@@ -15,7 +15,6 @@
 
 ** Vector Form
 	 To apply direction:
-
 	 - r⃗ = pos₂ - pos₁ (displacement vector from A to B)
 	 - r̂ = normalize(r⃗) (unit direction vector)
 	 - F⃗ = r̂ * F
@@ -39,6 +38,20 @@
 		- Should be conserved in an isolated system  
 		- Useful for debugging force accuracy and integration drift
 
+** Collision Handling in Simulation
+	 - Particles are given a radius to simulate size
+	 - When particles overlap (distance < sum of radii), a collision response is triggered
+	 - Elastic collisions are resolved using momentum-conserving velocity exchange
+
+*** Velocity Projection (Dot Product)
+		- For elastic collision, velocity is projected onto the collision axis:
+		v₁ₙ = v₁ · n̂  
+		v₂ₙ = v₂ · n̂  
+		(where n̂ is the unit vector between particle centers)
+
+		- These scalar projections represent how much velocity is aligned with the impact
+		- Resulting normal velocities are exchanged based on mass to conserve momentum
+
 ** Assumptions and Limitations
 	 - Assumes instantaneous action at a distance (no delay)
 	 - Ignores relativistic effects (curved spacetime, time dilation)
@@ -48,4 +61,3 @@
 	 - First force module to implement
 	 - Validates simulation loop and vector math
 	 - Simple baseline for comparing future models (relativistic, quantum, etc.)
-

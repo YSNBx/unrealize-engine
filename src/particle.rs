@@ -1,5 +1,6 @@
 use crate::vec2::Vec2;
 
+#[derive(Clone)]
 pub struct Particle {
   pub mass: f32,
   pub position: Vec2,
