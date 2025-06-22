@@ -1,12 +1,12 @@
 use super::particle::Particle;
 
 pub struct GravitySystem {
-  pub gravity_constant: f32,
-  pub softening: f32,
+  pub gravity_constant: f64,
+  pub softening: f64,
 }
 
 impl GravitySystem {
-  pub fn new(gravity_constant: f32, softening: f32) -> Self {
+  pub fn new(gravity_constant: f64, softening: f64) -> Self {
     GravitySystem {
       gravity_constant,
       softening,
@@ -52,8 +52,13 @@ impl GravitySystem {
 
         let r2 = distance * distance + self.softening * self.softening;
         let force = collision_normal.mul_scalar(self.gravity_constant * a.mass * b.mass / r2);
-        a.apply_force(force);
-        b.apply_force(force.mul_scalar(-1.0));      }
+
+        if !a.static_body {
+          a.apply_force(force);
+        }
+        if !b.static_body {
+          b.apply_force(force.mul_scalar(-1.0));      }
+        } 
     }
   }
 }

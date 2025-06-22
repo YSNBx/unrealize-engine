@@ -1,11 +1,11 @@
 #[derive(Debug, Copy, Clone)]
 pub struct Vec2 {
-  pub x: f32,
-  pub y: f32,
+  pub x: f64,
+  pub y: f64,
 }
 
 impl Vec2 {
-  pub fn new(x: f32, y: f32) -> Self {
+  pub fn new(x: f64, y: f64) -> Self {
     Vec2 { x, y }
   }
 
@@ -21,15 +21,15 @@ impl Vec2 {
     Vec2::new(self.x - other.x, self.y - other.y)
   }
 
-  pub fn mul_scalar(&self, scalar: f32) -> Vec2 {
+  pub fn mul_scalar(&self, scalar: f64) -> Vec2 {
     Vec2::new(self.x * scalar, self.y * scalar)
   }
 
-  pub fn vec_length(&self) -> f32 {
+  pub fn vec_length(&self) -> f64 {
     (self.x * self.x + self.y * self.y).sqrt()
   }
 
-  pub fn dot(&self, other: Vec2) -> f32 {
+  pub fn dot(&self, other: Vec2) -> f64 {
     self.x * other.x + self.y * other.y
   }
 

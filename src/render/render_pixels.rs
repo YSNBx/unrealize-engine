@@ -1,12 +1,13 @@
 use pixels::{Pixels, SurfaceTexture};
 use winit::{
   dpi::LogicalSize,
-  event::{Event, WindowEvent},
+  event::{ElementState, Event, VirtualKeyCode, WindowEvent},
   event_loop::{ControlFlow, EventLoop},
   window::WindowBuilder,
 };
 
 use crate::simulation::{gravity::GravitySystem, particle::Particle, vec2::Vec2};
+use crate::simulation::energy::{EnergyTracker};
 
 pub fn run_render_loop() {
   let event_loop = EventLoop::new();
@@ -27,6 +28,18 @@ pub fn run_render_loop() {
   let mut dt = 0.00694444;
   dt /= 3.0;
 
+  let tracker = EnergyTracker::new(gravity.gravity_constant);
+  let breakdowns = tracker.per_particle_energy(&particles);
+  let initial_energy = tracker.total_energy(&particles);
+  let mut particle_totals = Vec::new();
+  println!("Initial System Energy = {:.6}", initial_energy);
+  for (i, e) in breakdowns.iter().enumerate() {
+    let total = e.total;
+    particle_totals.push(total);
+    println!("Initial Particle {}: Total = {:.6}", i, total); 
+  }
+
+  let mut paused = true;
   event_loop.run(move |event, _, control_flow| {
     *control_flow = ControlFlow::Poll;
 
@@ -39,11 +52,34 @@ pub fn run_render_loop() {
         pixels.resize_surface(size.width, size.height).unwrap();
       }
 
-      Event::RedrawRequested(_) => {
-        gravity.apply(&mut particles);
+      Event::WindowEvent { event: WindowEvent::KeyboardInput { input, .. }, .. } => {
+        if let Some(VirtualKeyCode::Space) = input.virtual_keycode {
+          if input.state == ElementState::Pressed {
+            paused = !paused;
+          }
+        }
+      }
 
-        for p in particles.iter_mut() {
-          p.integrate(dt);
+      Event::RedrawRequested(_) => {
+        if !paused {
+          gravity.apply(&mut particles);
+
+          for p in particles.iter_mut() {
+            if !p.static_body {
+              p.integrate(dt);
+            }
+          }
+
+          let breakdowns = tracker.per_particle_energy(&particles);
+          for (i, e) in breakdowns.iter().enumerate() {
+            println!(
+              "Particle {}: KE = {:.4}, PE = {:.4}, Total = {:.4}, Drift = {:.7}", 
+              i, e.kinetic, e.potential, e.total, particle_totals[i] - e.total
+            );
+          }
+
+          let total = tracker.total_energy(&particles);
+          println!("Total system energy = {:.6}, Drift = {:.7}", total, initial_energy - total);
         }
 
         let frame_buffer = pixels.frame_mut();
@@ -68,7 +104,8 @@ pub fn run_render_loop() {
   });
 
   fn create_solar_system() -> Vec<Particle> {
-    let sun = Particle::new(1_989_000.0, [400.0, 300.0], 5.0);
+    let mut sun = Particle::new(1_989_000.0, [400.0, 300.0], 5.0);
+    sun.static_body = true;
     let mut bodies = vec![
       sun,
       Particle::new(0.33, [400.0, 250.0], 1.2),   // Mercury
@@ -83,7 +120,7 @@ pub fn run_render_loop() {
 
     for i in 1..bodies.len() {
       let r = (bodies[i].position.y - bodies[0].position.y).abs();
-      let v = ((6.6743f32 * bodies[0].mass) / r).sqrt();
+      let v = ((6.6743f64 * bodies[0].mass) / r).sqrt();
       bodies[i].velocity = Vec2::new(v, 0.0);
     }
     bodies

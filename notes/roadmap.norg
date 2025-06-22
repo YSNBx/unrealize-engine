@@ -8,7 +8,8 @@
 	--- (x) ASCII Renderer
 
 	-- ( ) /Phase 2: 2D Pixel Renderer/
-	--- ( ) Create window with `pixels` and `winit`
+	--- (x) Create window with `pixels` and `winit`
+	--- (x) Pixel rendering loop
 	--- ( ) Convert world coords to screen space
 	--- ( ) Color-code particles by ID/mass/type
 	--- ( ) Scale & zoom support
