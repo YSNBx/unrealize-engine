@@ -1,4 +1,4 @@
-use crate::particle::Particle;
+use super::particle::Particle;
 
 pub struct GravitySystem {
   pub gravity_constant: f32,
@@ -32,9 +32,9 @@ impl GravitySystem {
         if distance < min_dist {
           let v1n = a.velocity.dot(collision_normal);
           let v2n = b.velocity.dot(collision_normal);
-
           let m1 = a.mass;
           let m2 = b.mass;
+
           let v1n_prime = (v1n * (m1 - m2) + 2.0 * m2 * v2n) / (m1 + m2);
           let v2n_prime = (v2n * (m1 - m2) + 2.0 * m1 * v1n) / (m1 + m2);
 
@@ -50,14 +50,10 @@ impl GravitySystem {
           b.position = b.position.add(correction);
         }
 
-        let softened_distance = (distance * distance + self.softening * self.softening).sqrt();
-        let force_magnitude = self.gravity_constant * a.mass * b.mass / (softened_distance * softened_distance);
-
-        let gravity_force = collision_normal.mul_scalar(force_magnitude);
-
-        a.apply_force(gravity_force);
-        b.apply_force(gravity_force.mul_scalar(-1.0));
-      }
+        let r2 = distance * distance + self.softening * self.softening;
+        let force = collision_normal.mul_scalar(self.gravity_constant * a.mass * b.mass / r2);
+        a.apply_force(force);
+        b.apply_force(force.mul_scalar(-1.0));      }
     }
   }
 }

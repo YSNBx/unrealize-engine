@@ -1,4 +1,4 @@
-use crate::vec2::Vec2;
+use super::vec2::Vec2;
 
 #[derive(Clone)]
 pub struct Particle {
@@ -6,7 +6,6 @@ pub struct Particle {
   pub position: Vec2,
   pub velocity: Vec2,
   pub acceleration: Vec2,
-  #[allow(dead_code)]
   pub radius: f32,
 }
 

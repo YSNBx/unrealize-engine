@@ -1,4 +1,4 @@
-use crate::particle::Particle;
+use simulation::particle::Particle;
 
 pub struct EnergyTracker {
   pub g: f32,

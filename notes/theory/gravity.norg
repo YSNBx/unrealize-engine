@@ -4,6 +4,9 @@
 	 Newtonian gravity describes the attractive force between two masses.
 	 It is a classical model that works well at low speeds and weak gravitational fields.
 
+** Gravitational Constant
+	 G = 6.67430e-11 m³ * kg⁻¹ * s⁻²
+
 ** Scalar Formula
 	 F = G * (m₁ * m₂) / r²
 

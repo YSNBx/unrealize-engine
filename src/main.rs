@@ -1,14 +1,10 @@
-mod vec2;
-mod particle;
-mod gravity;
-mod energy;
-mod render_pixels; // 2D renderer
+mod simulation;
+mod render;
 
-use crate::render_pixels::run_render_loop;
+use render::render_pixels::run_render_loop;
 
 fn main() {
-    env_logger::init(); // optional logging
-
-    run_render_loop();
+  env_logger::init();
+  run_render_loop();
 }
 
