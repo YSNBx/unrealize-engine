@@ -1,5 +1,7 @@
 mod simulation;
 mod render;
+mod logger;
+mod system;
 
 use render::render_pixels::run_render_loop;
 

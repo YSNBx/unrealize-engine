@@ -64,3 +64,32 @@
 	 - First force module to implement
 	 - Validates simulation loop and vector math
 	 - Simple baseline for comparing future models (relativistic, quantum, etc.)
+
+** Integration Used
+  We use Velocity Verlet integration for Newtonian gravity.
+  - Choosen for its balance between accuracy and performance.
+  - Helps reduce energy drift over time.
+  - Predicts position with a(t), recalculates a(t+Δt), then updates velocity.
+
+  Integration details omitted here to focus on higher-level theory.
+
+** Constants and Initial Conditions
+
+| Name               | Symbol | Value            | Unit                      | Notes                                  |
+|--------------------|--------|------------------|---------------------------|----------------------------------------|
+| Gravitational Const| G      | 6.6743           | m³ / (kg · s²)            | Newtonian gravity constant (scaled)    |
+| Time Step          | Δt     | 0.00173611       | seconds                   | 0.00694444 / 4 (fixed timestep)        |
+| Softening Factor   | ε      | 3.0              | unitless (distance units) | Prevents infinite force at short range |
+| Sun Mass           | M☉     | 1_989_000.0      | kg (scaled)               | Set as static central mass             |
+
+| Body    | Real Mass (kg)     | Sim Mass | Mass x | Real Dist (10⁶ km)  | Sim Dist | Dist x   |
+|---------|--------------------|----------|--------|---------------------|----------|----------|
+| Sun     | 1.989e30           | 1_989_000| 1e-24  | 0                   | 0        | —        |
+| Mercury | 3.30e23            | 0.33     | 1e-24  | 57.9                | 40       | 1.45e6   |
+| Venus   | 4.87e24            | 4.87     | 1e-24  | 108.2               | 70       | 1.54e6   |
+| Earth   | 5.97e24            | 5.97     | 1e-24  | 149.6               | 100      | 1.50e6   |
+| Mars    | 6.42e23            | 0.64     | 1e-24  | 227.9               | 150      | 1.52e6   |
+| Jupiter | 1.898e27           | 1898.0   | 1e-24  | 778.5               | 520      | 1.50e6   |
+| Saturn  | 5.68e26            | 568.0    | 1e-24  | 1434                | 960      | 1.49e6   |
+| Uranus  | 8.68e25            | 86.8     | 1e-24  | 2871                | 1910     | 1.50e6   |
+| Neptune | 1.02e26            | 102.0    | 1e-24  | 4495                | 3000     | 1.50e6   |

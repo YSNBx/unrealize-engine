@@ -1,5 +1,4 @@
 use super::particle::Particle;
-use super::vec2::Vec2;
 
 #[derive(Debug, Clone)]
 pub struct EnergyBreakdown {

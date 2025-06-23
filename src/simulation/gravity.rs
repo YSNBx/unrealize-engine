@@ -1,3 +1,5 @@
+use crate::simulation::vec2::Vec2;
+
 use super::particle::Particle;
 
 pub struct GravitySystem {
@@ -15,6 +17,10 @@ impl GravitySystem {
 
   pub fn apply(&self, particles: &mut [Particle]) {
     let num_particles = particles.len();
+
+    for p in particles.iter_mut() {
+      p.acceleration = Vec2::zero();
+    }
 
     for i in 0..num_particles {
       for j in (i + 1)..num_particles {

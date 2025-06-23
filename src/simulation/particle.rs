@@ -1,3 +1,5 @@
+use std::collections::VecDeque;
+
 use super::vec2::Vec2;
 
 #[derive(Clone)]
@@ -8,6 +10,7 @@ pub struct Particle {
   pub acceleration: Vec2,
   pub radius: f64,
   pub static_body: bool,
+  pub trail: VecDeque<Vec2>,
 }
 
 impl Particle {
@@ -19,6 +22,7 @@ impl Particle {
       acceleration: Vec2::zero(),
       radius,
       static_body: false,
+      trail: VecDeque::with_capacity(100),
     }
   }
 
@@ -27,9 +31,14 @@ impl Particle {
     self.acceleration = self.acceleration.add(acc);
   }
 
-  pub fn integrate(&mut self, dt: f64) {
-    self.velocity = self.velocity.add(self.acceleration.mul_scalar(dt));
-    self.position = self.position.add(self.velocity.mul_scalar(dt));
-    self.acceleration = Vec2::zero();
+  pub fn integrate(&mut self, dt: f64, new_accel: Vec2) {
+    let current_accel = self.acceleration;
+
+    self.position = self.position
+      .add(self.velocity.mul_scalar(dt))
+      .add(current_accel.add(new_accel).mul_scalar(0.5 * dt * dt));
+
+    self.velocity = self.velocity.add(current_accel.add(new_accel).mul_scalar(0.5 * dt));
+    self.acceleration = new_accel;
   }
 }

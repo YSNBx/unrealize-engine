@@ -7,17 +7,17 @@
 	--- (x) Print state per frame
 	--- (x) ASCII Renderer
 
-	-- ( ) /Phase 2: 2D Pixel Renderer/
-	--- (x) Create window with `pixels` and `winit`
+	-- (x) /Phase 2: 2D Pixel Renderer/
+	--- (x) Create window with pixels and winit
 	--- (x) Pixel rendering loop
-	--- ( ) Convert world coords to screen space
-	--- ( ) Color-code particles by ID/mass/type
-	--- ( ) Scale & zoom support
-	--- ( ) Optional: vector trails or velocity arrows
+	--- (x) Convert world coords to screen space
+	--- (x) Color-code particles by ID/mass/type
+	--- (x) cale & zoom support
+	--- (x) Optional: vector trails or velocity arrows
 
 	-- ( ) /Phase 3: Entity System/
 	--- ( ) Massless entities
-	--- ( ) Static (immovable) entities
+	--- (x) Static (immovable) entities
 	--- ( ) Spring-linked particles
 	--- ( ) Charge / type tags
 
