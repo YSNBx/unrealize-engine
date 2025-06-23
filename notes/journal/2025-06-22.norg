@@ -1,0 +1,20 @@
+* 2025-06-22 - Newtonian Gravity
+
+** Summaru
+	 - refined newtonian gravity
+	 - added verlet integration for higher simulation accuracy
+	 -- fixes drift as well
+	 - tuning constants::DT to 0.0069444 (1/144) / 4.0 - stable orbit
+	 - fixed window area clipping, whole window is used now
+
+** Observations
+	 - need to use predicted positions (particles_next) with correct acceleration logic
+	 - cloning particles is safe and helps visualize hypothetical next state
+	 - energy tracking and logging helped catch subtle drift errors early
+	 - trails + orbit overlays aid in visual debugging
+
+** Next Steps
+	 - modularize force logic (e.g. create `Force` trait)
+	 - add massless and spring-linked particles
+	 - implement proper unit handling or abstraction layer for scaled simulations
+	 - begin field/grid planning for curvature simulation

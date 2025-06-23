@@ -1,21 +1,21 @@
 use crate::simulation::vec2::Vec2;
 
-use super::particle::Particle;
+use super::particle::Entity;
 
-pub struct GravitySystem {
+pub struct NewtonianGravity {
   pub gravity_constant: f64,
   pub softening: f64,
 }
 
-impl GravitySystem {
+impl NewtonianGravity {
   pub fn new(gravity_constant: f64, softening: f64) -> Self {
-    GravitySystem {
+    NewtonianGravity {
       gravity_constant,
       softening,
     }
   }
 
-  pub fn apply(&self, particles: &mut [Particle]) {
+  pub fn apply(&self, particles: &mut [Entity]) {
     let num_particles = particles.len();
 
     for p in particles.iter_mut() {

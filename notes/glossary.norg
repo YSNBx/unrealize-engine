@@ -1,0 +1,65 @@
+* Glossary – Unrealize Engine
+
+** Physics Concepts
+*** Newtonian Gravity
+    - A classical model describing the attractive force between two masses.
+    - F = G * (m₁ * m₂) / r²
+
+*** Kinetic Energy (KE)
+    - Energy of motion.
+    - KE = ½ * m * v²
+
+*** Potential Energy (PE)
+    - Energy due to position in a gravitational field.
+    - PE = -G * (m₁ * m₂) / r
+
+*** Softening Factor
+    - Small constant added to avoid division by zero when distance ≈ 0.
+    - Stabilizes force calculation at close range.
+
+*** Elastic Collision
+    - Momentum-conserving bounce between particles.
+
+*** Unit Vector (r̂)
+    - Direction vector of length 1.
+    - Used to normalize a displacement vector.
+
+** Code Architecture
+*** Entity
+    - Core simulation entity with mass, position, velocity, acceleration, etc.
+
+*** GravitySystem
+    - Calculates and applies gravitational force between particles.
+
+*** Integration
+    - Advances the state of particles using current and predicted acceleration.
+
+*** Vec2
+    - 2D vector utility struct with x and y.
+
+** Simulation Control
+*** Time Step (dt)
+    - Fixed duration between simulation updates.
+    - Smaller dt → higher accuracy, slower runtime.
+
+*** Initial Scale
+    - Zoom level at which the simulation is rendered.
+
+*** Trail
+    - Deque of previous positions used to visualize particle paths.
+
+*** Static Body
+    - An immovable object (e.g. sun) not affected by forces.
+
+** Constants in Use
+*** GRAVITY_CONSTANT
+    - G = 6.6743
+    - Scaled down from real-world G for stability.
+
+*** DT
+    - dt = 0.00694444 / 4.0
+    - Controls simulation update rate.
+
+*** SOFTENING
+    - Prevents infinite forces during close encounters.
+

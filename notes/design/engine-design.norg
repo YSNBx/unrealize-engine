@@ -1,21 +1,35 @@
 * Unrealize Engine Design
 
 ** Purpose
-	 To simulate fundamental forces as modular code and identify mismatches to reverse-engineer
+	To simulate fundamental forces as modular code and identify mismatches to reverse-engineer
 
 ** Architecture Overview
-	 - (x) Simulation Core (main loop, time steps, delta updates)
-	 - ( ) Entity System (particles, fields)
-	 - ( ) Force Modules:
-	 -- ( ) Gravity
-	 -- ( ) Electromagnetism
-	 -- ( ) Quantum Field
-	 -- ( ) Entropy / Information
-	 - ( ) Spacetime Grid (2D to start)
-	 - ( ) Logging + Visualization (print debug states, maybe term UI)
+	- (x) Simulation Core (main loop, time steps, delta updates)
+	- (x) Entity System (particles, fields)
+	- (x) Force Modules:
+	-- (x) Gravity (Newtonian)
+	-- ( ) Electromagnetism
+	-- ( ) Quantum Field
+	-- ( ) Entropy / Information
+	- ( ) Spacetime Grid (2D to start)
+	- (x) Logging + Visualization (print debug states, terminal + visual)
 
 ** Initial Goals
-	 - (x) Build minimal engine loop with fixed time step
-	 - (x) Implement Newtonian gravity module
-	 - (x) Add two particles and simulate attraction
-	 - (x) Print state per frame (position, velocity, acceleration, force)
+	- (x) Fixed timestep loop with `DT = 0.00694444 / 4.0`
+	- (x) Newtonian gravity with softening and elastic collisions
+	- (x) Position + velocity Verlet integration
+	- (x) Multi-body gravitational simulation (Sun + planets)
+	- (x) 2D pixel renderer with zoom/pan/click interaction
+	- (x) Energy tracker (KE, PE, total)
+	- (x) Trail rendering + orbit overlays
+	- (x) Real-time energy drift logger
+	- (x) Camera system with pause toggle and scale control
+
+** Future Directions
+	- ( ) Trait-based modular force system
+	- ( ) Plug-and-play entity groups (planets, particles, black holes)
+	- ( ) Spacetime sampling grid
+	- ( ) CSV + state snapshot system
+	- ( ) Force field overlays (gravitational vector field?)
+	- ( ) Visual editor (GUI or command-line)
+

@@ -1,11 +1,11 @@
-use crate::simulation::{energy::EnergyTracker, particle::Particle};
+use crate::simulation::{energy::EnergyTracker, particle::Entity};
 
 pub fn log(message: &str, total: f64, initial: f64) {
   println!("{} = {:.6}, Drift = {:.7}", message, total, initial - total); 
 }
 
 pub fn log_drift(
-  particles: &[Particle],
+  particles: &[Entity],
   tracker: &EnergyTracker,
   initial_totals: &[f64],
 ) {
@@ -18,7 +18,7 @@ pub fn log_drift(
   }
 }
 
-pub fn log_initial_energy(tracker: &EnergyTracker, particles: &[Particle]) -> Vec<f64> {
+pub fn log_initial_energy(tracker: &EnergyTracker, particles: &[Entity]) -> Vec<f64> {
   let breakdowns = tracker.per_particle_energy(particles);
   let initial_total = tracker.total_energy(particles);
 

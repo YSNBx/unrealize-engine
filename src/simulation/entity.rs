@@ -3,7 +3,7 @@ use std::collections::VecDeque;
 use super::vec2::Vec2;
 
 #[derive(Clone)]
-pub struct Particle {
+pub struct Entity {
   pub mass: f64,
   pub position: Vec2,
   pub velocity: Vec2,
@@ -13,9 +13,9 @@ pub struct Particle {
   pub trail: VecDeque<Vec2>,
 }
 
-impl Particle {
+impl Entity {
   pub fn new(mass: f64, position: [f64; 2], radius: f64) -> Self {
-    Particle {
+    Entity {
       mass,
       position: Vec2::new(position[0], position[1]),
       velocity: Vec2::zero(),

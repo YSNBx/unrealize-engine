@@ -1,5 +1,5 @@
 use crate::render::camera::Camera;
-use crate::simulation::particle::Particle;
+use crate::simulation::particle::Entity;
 use crate::simulation::vec2::Vec2;
 use crate::render::constants;
 
@@ -73,7 +73,7 @@ pub fn draw_orbit_circle(
 }
 
 pub fn render_frame(frame_buffer: &mut [u8],
-  particles: &mut [Particle],
+  particles: &mut [Entity],
   camera: &Camera,
   size: (u32, u32),
 ) {

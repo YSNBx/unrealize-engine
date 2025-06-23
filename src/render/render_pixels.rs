@@ -2,7 +2,7 @@ use winit::{event::{Event, WindowEvent}, event_loop::{ControlFlow, EventLoop}};
 
 use crate::{
   render::{camera::Camera, draw, window, constants}, 
-  simulation::{energy::EnergyTracker, vec2::Vec2, gravity::GravitySystem, particle::Particle},
+  simulation::{energy::EnergyTracker, vec2::Vec2, gravity::NewtonianGravity, particle::Entity},
   system::solar,
   logger::logger
 };
@@ -14,7 +14,7 @@ pub fn run_render_loop() {
   let mut size = window.inner_size();
 
   let mut particles = solar::create_solar_system();
-  let gravity = GravitySystem::new(constants::GRAVITY_CONSTANT, constants::SOFTENING);
+  let gravity = NewtonianGravity::new(constants::GRAVITY_CONSTANT, constants::SOFTENING);
 
   let tracker = EnergyTracker::new(gravity.gravity_constant);
   let initial_energy = tracker.total_energy(&particles);
@@ -56,7 +56,7 @@ pub fn run_render_loop() {
   });
 }
 
-fn advanced_integrate_step(particles: &mut [Particle], gravity: &GravitySystem) {
+fn advanced_integrate_step(particles: &mut [Entity], gravity: &NewtonianGravity) {
   gravity.apply(particles);
   let old_accels: Vec<Vec2> = particles.iter().map(|p| p.acceleration).collect();
 

@@ -1,4 +1,4 @@
-use super::particle::Particle;
+use super::particle::Entity;
 
 #[derive(Debug, Clone)]
 pub struct EnergyBreakdown {
@@ -16,13 +16,13 @@ impl EnergyTracker {
     EnergyTracker { g }
   }
 
-  pub fn total_kinetic(&self, particles: &[Particle]) -> f64 {
+  pub fn total_kinetic(&self, particles: &[Entity]) -> f64 {
     particles.iter().map(|p| {
       0.5 * p.mass * (p.velocity.x * p.velocity.x + p.velocity.y * p.velocity.y)
     }).sum()
   }
 
-  pub fn total_potential(&self, particles: &[Particle]) -> f64 {
+  pub fn total_potential(&self, particles: &[Entity]) -> f64 {
     let mut potential = 0.0;
     let len = particles.len();
 
@@ -37,11 +37,11 @@ impl EnergyTracker {
     potential
   }
 
-  pub fn total_energy(&self, particles: &[Particle]) -> f64 {
+  pub fn total_energy(&self, particles: &[Entity]) -> f64 {
     self.total_kinetic(particles) + self.total_potential(particles)
   }
 
-  pub fn per_particle_energy(&self, particles: &[Particle]) -> Vec<EnergyBreakdown> {
+  pub fn per_particle_energy(&self, particles: &[Entity]) -> Vec<EnergyBreakdown> {
     let mut breakdowns = Vec::with_capacity(particles.len());
 
     for (i, a) in particles.iter().enumerate() {
