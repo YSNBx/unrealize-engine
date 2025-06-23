@@ -1,5 +1,5 @@
 use crate::render::camera::Camera;
-use crate::simulation::particle::Entity;
+use crate::simulation::entity::Entity;
 use crate::simulation::vec2::Vec2;
 use crate::render::constants;
 
@@ -9,7 +9,7 @@ pub fn world_to_screen(pos: Vec2, center: Vec2, scale: f64, width: u32, height: 
   (x, y)
 }
 
-pub fn draw_particle(f_buf: &mut [u8], width: u32, height: u32, x: i32, y: i32, rad: i32, col: [u8; 4]) {
+pub fn draw_entity(f_buf: &mut [u8], width: u32, height: u32, x: i32, y: i32, rad: i32, col: [u8; 4]) {
   for dy in -rad..=rad {
     for dx in -rad..=rad {
       if dx * dx + dy * dy <= rad * rad {
@@ -26,7 +26,7 @@ pub fn draw_particle(f_buf: &mut [u8], width: u32, height: u32, x: i32, y: i32, 
   }
 }
 
-pub fn get_particle_color(index: usize) -> [u8; 4] {
+pub fn get_entity_color(index: usize) -> [u8; 4] {
   match index {
     0 => [255, 255, 0, 255],
     1 => [200, 200, 200, 255],
@@ -73,14 +73,14 @@ pub fn draw_orbit_circle(
 }
 
 pub fn render_frame(frame_buffer: &mut [u8],
-  particles: &mut [Entity],
+  entity: &mut [Entity],
   camera: &Camera,
   size: (u32, u32),
 ) {
   let (width, height) = size;
   frame_buffer.fill(0);
 
-  for p in particles.iter_mut() {
+  for p in entity.iter_mut() {
     if !p.static_body {
       p.trail.push_back(p.position);
       if p.trail.len() > constants::MAX_TRAIL_LEN {
@@ -89,16 +89,16 @@ pub fn render_frame(frame_buffer: &mut [u8],
     }
   }
 
-  for p in particles.iter() {
+  for p in entity.iter() {
     for (i, point) in p.trail.iter().enumerate() {
       let (x, y) = world_to_screen(*point, camera.center, camera.scale, width, height);
       let alpha = ((i as f32 / p.trail.len() as f32) * 255.0) as u8;
-      draw_particle(frame_buffer, width, height, x, y, 1, [0x80, 0x80, 0x80, alpha]);
+      draw_entity(frame_buffer, width, height, x, y, 1, [0x80, 0x80, 0x80, alpha]);
     }
   }
 
-  for (i, p) in particles.iter().enumerate().skip(1) {
-    let sun_pos = particles[0].position;
+  for (i, p) in entity.iter().enumerate().skip(1) {
+    let sun_pos = entity[0].position;
     let orbit_radius = (p.position.sub(sun_pos)).vec_length();
     draw_orbit_circle(
       frame_buffer,
@@ -112,10 +112,10 @@ pub fn render_frame(frame_buffer: &mut [u8],
     );
   }
 
-  for (i, p) in particles.iter().enumerate() {
+  for (i, p) in entity.iter().enumerate() {
     let (x, y) = world_to_screen(p.position, camera.center, camera.scale, width, height);
     if x >= 0 && y >= 0 && x < width as i32 && y < height as i32 {
-      draw_particle(frame_buffer, width, height, x, y, 7, get_particle_color(i));
+      draw_entity(frame_buffer, width, height, x, y, 7, get_entity_color(i));
     }
   }
 }

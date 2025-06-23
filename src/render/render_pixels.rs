@@ -2,7 +2,7 @@ use winit::{event::{Event, WindowEvent}, event_loop::{ControlFlow, EventLoop}};
 
 use crate::{
   render::{camera::Camera, draw, window, constants}, 
-  simulation::{energy::EnergyTracker, vec2::Vec2, gravity::NewtonianGravity, particle::Entity},
+  simulation::{energy::EnergyTracker, vec2::Vec2, newtonian_gravity::NewtonianGravity, entity::Entity},
   system::solar,
   logger::logger
 };
@@ -13,12 +13,12 @@ pub fn run_render_loop() {
   let (window, mut pixels) = window::create_window(&event_loop);
   let mut size = window.inner_size();
 
-  let mut particles = solar::create_solar_system();
+  let mut entities = solar::create_solar_system();
   let gravity = NewtonianGravity::new(constants::GRAVITY_CONSTANT, constants::SOFTENING);
 
   let tracker = EnergyTracker::new(gravity.gravity_constant);
-  let initial_energy = tracker.total_energy(&particles);
-  let particle_totals = logger::log_initial_energy(&tracker, &particles);
+  let initial_energy = tracker.total_energy(&entities);
+  let entities_totals = logger::log_initial_energy(&tracker, &entities);
 
   event_loop.run(move |event, _, control_flow| {
     *control_flow = ControlFlow::Poll;
@@ -38,13 +38,13 @@ pub fn run_render_loop() {
       }
 
       Event::RedrawRequested(_) => {
-        advanced_integrate_step(&mut particles, &gravity);
-        logger::log_drift(&particles, &tracker, &particle_totals);
+        advanced_integrate_step(&mut entities, &gravity);
+        logger::log_drift(&entities, &tracker, &entities_totals);
 
-        let total = tracker.total_energy(&particles);
+        let total = tracker.total_energy(&entities);
         logger::log("Total system energy", total, initial_energy);
 
-        draw::render_frame(pixels.frame_mut(), &mut particles, &camera, (size.width, size.height));
+        draw::render_frame(pixels.frame_mut(), &mut entities, &camera, (size.width, size.height));
         pixels.render().unwrap();
       }
 
@@ -56,12 +56,12 @@ pub fn run_render_loop() {
   });
 }
 
-fn advanced_integrate_step(particles: &mut [Entity], gravity: &NewtonianGravity) {
-  gravity.apply(particles);
-  let old_accels: Vec<Vec2> = particles.iter().map(|p| p.acceleration).collect();
+fn advanced_integrate_step(entities: &mut [Entity], gravity: &NewtonianGravity) {
+  gravity.apply(entities);
+  let old_accels: Vec<Vec2> = entities.iter().map(|p| p.acceleration).collect();
 
-  let mut particles_next = particles.to_vec();
-  for (p, a0) in particles_next.iter_mut().zip(&old_accels) {
+  let mut entities_next = entities.to_vec();
+  for (p, a0) in entities_next.iter_mut().zip(&old_accels) {
     if !p.static_body {
       p.position = p.position
         .add(p.velocity.mul_scalar(constants::DT))
@@ -69,10 +69,10 @@ fn advanced_integrate_step(particles: &mut [Entity], gravity: &NewtonianGravity)
     }
   }
 
-  gravity.apply(&mut particles_next);
-  let new_accels: Vec<Vec2> = particles.iter().map(|p| p.acceleration).collect();
+  gravity.apply(&mut entities_next);
+  let new_accels: Vec<Vec2> = entities.iter().map(|p| p.acceleration).collect();
 
-  for ((p, a0), a1) in particles.iter_mut().zip(&old_accels).zip(&new_accels) {
+  for ((p, a0), a1) in entities.iter_mut().zip(&old_accels).zip(&new_accels) {
     if !p.static_body {
       p.integrate(constants::DT, *a1);
     }

@@ -1,6 +1,6 @@
 use crate::simulation::vec2::Vec2;
 
-use super::particle::Entity;
+use super::entity::Entity;
 
 pub struct NewtonianGravity {
   pub gravity_constant: f64,

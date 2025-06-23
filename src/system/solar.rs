@@ -1,4 +1,4 @@
-use crate::{render::constants, simulation::{particle::Entity, vec2::Vec2}};
+use crate::{render::constants, simulation::{entity::Entity, vec2::Vec2}};
 
 pub fn create_solar_system() -> Vec<Entity> {
   let mut sun = Entity::new(1_989_000.0, [0.0, 0.0], 5.0);
