@@ -1,6 +1,5 @@
 * Roadmap
-
-	- (x) *Core Engine Development*
+	- ( ) *Core Engine Development*
 	-- (x) /Phase 1: Basic Simulation Loop/
 	--- (x) Fixed timestep engine loop
 	--- (x) Particle system with position, velocity, acceleration
@@ -22,7 +21,7 @@
 	--- ( ) Charge / type tags
 
 	-- ( ) /Phase 4: Force Abstraction/
-	--- ( ) Define Force trait
+	--- (x) Define Force trait
 	--- ( ) Plug-in force system via trait objects
 	--- ( ) Layer multiple forces
 
@@ -66,7 +65,7 @@
 	---- (x) Add radius to particles
 	---- (x) Detect overlap using distance vs radius
 	---- (x) Apply repulsion forces (elastic collision)
-	---- (-) Refine stability of elastic collision response
+	---- (x) Refine stability of elastic collision response
 	---- (-) Optional: Implement soft repulsion model
 
 	--- ( ) /Phase G4: Relativistic Approximation/

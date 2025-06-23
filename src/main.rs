@@ -2,6 +2,7 @@ mod simulation;
 mod render;
 mod logger;
 mod system;
+mod force;
 
 use render::render_pixels::run_render_loop;
 

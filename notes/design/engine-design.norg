@@ -26,7 +26,7 @@
 	- (x) Camera system with pause toggle and scale control
 
 ** Future Directions
-	- ( ) Trait-based modular force system
+	- (x) Trait-based modular force system
 	- ( ) Plug-and-play entity groups (planets, particles, black holes)
 	- ( ) Spacetime sampling grid
 	- ( ) CSV + state snapshot system

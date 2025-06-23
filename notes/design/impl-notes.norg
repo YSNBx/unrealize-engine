@@ -1,45 +1,45 @@
 * Implementation Notes – Newtonian Gravity System
 
 ** Entity Design
-	- (x) mass: f64
-	- (x) position: Vec2
-	- (x) velocity: Vec2
-	- (x) acceleration: Vec2
-	- (x) static_body: bool
-	- (x) trail: VecDeque
+	 - (x) mass: f64
+	 - (x) position: Vec2
+	 - (x) velocity: Vec2
+	 - (x) acceleration: Vec2
+	 - (x) static_body: bool
+	 - (x) trail: VecDeque
 
 ** Vec2
-	- (x) x, y (f64)
-	- (x) add, sub, mul_scalar, dot, normalize, vec_length
+	 - (x) x, y (f64)
+	 - (x) add, sub, mul_scalar, dot, normalize, vec_length
 
 ** NewtonianGravity
-	- (x) gravity_constant: f64
-	- (x) softening: f64
-	- (x) apply forces using Newton's law with softening to avoid singularities
-	- (x) handles elastic collisions when particles overlap
-	- (x) normal vector used to compute velocity projections for bounce
+	 - (x) gravity_constant: f64
+	 - (x) softening: f64
+	 - (x) apply forces using Newton's law with softening to avoid singularities
+	 - (x) handles elastic collisions when particles overlap
+	 - (x) normal vector used to compute velocity projections for bounce
 
 ** Integration
-	- (x) Velocity Verlet method:
-	-- Step 1: Store old accelerations
-	-- Step 2: Predict new position using a(t)
-	-- Step 3: Apply gravity at predicted position → a(t+dt)
-	-- Step 4: Integrate using both a(t) and a(t+dt)
+	 - (x) Velocity Verlet method:
+	 -- (x) Store old accelerations
+	 -- (x) Predict new position using a(t)
+	 -- (x) Apply gravity at predicted position → a(t+dt)
+	 -- (x) Integrate using both a(t) and a(t+dt)
 
 ** Simulation Loop
-	- (x) Fixed timestep with DT = 0.00694444 / 4.0
-	- (x) Accurate orbit stability with low energy drift
+	 - (x) Fixed timestep with DT = 0.00694444 / 4.0
+	 - (x) Accurate orbit stability with low energy drift
 	 - (x) Step function accepts &mut \[Entity\] and simulates frame
 
 ** Renderer
-	- (x) Pixel-based display via pixels and winit
-	- (x) Converts world coords to screen space
-	- (x) Supports camera dragging and zooming
-	- (x) Renders trails, orbit fit circles, color-coded bodies
+	 - (x) Pixel-based display via pixels and winit
+	 - (x) Converts world coords to screen space
+	 - (x) Supports camera dragging and zooming
+	 - (x) Renders trails, orbit fit circles, color-coded bodies
 
 ** Notes
-	- (x) Simulation was unstable when predicting positions using wrong acceleration vector
-	- (x) Energy drift minimized using correct Velocity Verlet step and DT adjustment
-	- (x) Logging drift and total energy allows quick detection of instability
-	- (x) particles.clone() is safe and works if clone impl is correct (used for prediction)
+	 - (x) Simulation was unstable when predicting positions using wrong acceleration vector
+	 - (x) Energy drift minimized using correct Velocity Verlet step and DT adjustment
+	 - (x) Logging drift and total energy allows quick detection of instability
+	 - (x) particles.clone() is safe and works if clone impl is correct (used for prediction)
 

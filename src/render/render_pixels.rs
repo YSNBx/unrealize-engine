@@ -1,10 +1,11 @@
 use winit::{event::{Event, WindowEvent}, event_loop::{ControlFlow, EventLoop}};
 
 use crate::{
-  render::{camera::Camera, draw, window, constants}, 
-  simulation::{energy::EnergyTracker, vec2::Vec2, newtonian_gravity::NewtonianGravity, entity::Entity},
-  system::solar,
-  logger::logger
+  render::{camera::Camera, constants, draw, window}, 
+  simulation::{energy::EnergyTracker, entity::Entity, vec2::Vec2},
+  force::{newtonian_gravity, Force, linear_push::LinearPushForce}, 
+  logger::logger, 
+  system::solar
 };
 
 pub fn run_render_loop() {
@@ -13,10 +14,15 @@ pub fn run_render_loop() {
   let (window, mut pixels) = window::create_window(&event_loop);
   let mut size = window.inner_size();
 
-  let mut entities = solar::create_solar_system();
-  let gravity = NewtonianGravity::new(constants::GRAVITY_CONSTANT, constants::SOFTENING);
-
+  let gravity = newtonian_gravity::NewtonianGravity::new(constants::GRAVITY_CONSTANT, constants::SOFTENING);
   let tracker = EnergyTracker::new(gravity.gravity_constant);
+
+  let mut entities = solar::create_solar_system();
+  let forces: Vec<Box<dyn Force>> = vec![
+    Box::new(gravity),
+    // Box::new(LinearPushForce::new(Vec2::new(5.0, 0.0))),
+  ];
+
   let initial_energy = tracker.total_energy(&entities);
   let entities_totals = logger::log_initial_energy(&tracker, &entities);
 
@@ -38,7 +44,7 @@ pub fn run_render_loop() {
       }
 
       Event::RedrawRequested(_) => {
-        advanced_integrate_step(&mut entities, &gravity);
+        advanced_integrate_step(&mut entities, &forces);
         logger::log_drift(&entities, &tracker, &entities_totals);
 
         let total = tracker.total_energy(&entities);
@@ -56,8 +62,8 @@ pub fn run_render_loop() {
   });
 }
 
-fn advanced_integrate_step(entities: &mut [Entity], gravity: &NewtonianGravity) {
-  gravity.apply(entities);
+fn advanced_integrate_step(entities: &mut [Entity], forces: &[Box<dyn Force>]) {
+  apply_force(entities, forces);
   let old_accels: Vec<Vec2> = entities.iter().map(|p| p.acceleration).collect();
 
   let mut entities_next = entities.to_vec();
@@ -69,12 +75,18 @@ fn advanced_integrate_step(entities: &mut [Entity], gravity: &NewtonianGravity) 
     }
   }
 
-  gravity.apply(&mut entities_next);
+  apply_force(&mut entities_next, forces);
   let new_accels: Vec<Vec2> = entities.iter().map(|p| p.acceleration).collect();
 
   for ((p, a0), a1) in entities.iter_mut().zip(&old_accels).zip(&new_accels) {
     if !p.static_body {
       p.integrate(constants::DT, *a1);
     }
+  }
+}
+
+fn apply_force(entities: &mut [Entity], forces: &[Box<dyn Force>]) {
+  for force in forces {
+    force.apply(entities);
   }
 }

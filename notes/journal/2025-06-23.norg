@@ -1,0 +1,13 @@
+* 2025-06-23 – Force Abstraction & Stability
+
+** summary
+	 - added Force trait abstraction
+	 - refactored Newtonian gravity into NewtonianGravity struct
+	 - passed forces as Vec\<Box\<dyn Force>>, allowing modular plug-in
+	 - introduced artificial "push" force to test multi-force integration
+	 - verified integration stability with velocity Verlet and softening
+	 - observed orbital disruption when layering non-gravitational force
+
+** notes
+	 - energy conservation diagnostics work well for debugging
+	 - trait system enables seamless force layering without rewriting logic

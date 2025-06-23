@@ -1,6 +1,4 @@
-use crate::simulation::vec2::Vec2;
-
-use super::entity::Entity;
+use crate::{force::force::Force, simulation::{entity::Entity, vec2::Vec2}};
 
 pub struct NewtonianGravity {
   pub gravity_constant: f64,
@@ -9,15 +7,13 @@ pub struct NewtonianGravity {
 
 impl NewtonianGravity {
   pub fn new(gravity_constant: f64, softening: f64) -> Self {
-    NewtonianGravity {
-      gravity_constant,
-      softening,
-    }
+    Self { gravity_constant, softening, }
   }
+}
 
-  pub fn apply(&self, particles: &mut [Entity]) {
+impl Force for NewtonianGravity {
+  fn apply(&self, particles: &mut [Entity]) {
     let num_particles = particles.len();
-
     for p in particles.iter_mut() {
       p.acceleration = Vec2::zero();
     }
@@ -64,7 +60,7 @@ impl NewtonianGravity {
         }
         if !b.static_body {
           b.apply_force(force.mul_scalar(-1.0));      }
-        } 
+      } 
     }
   }
 }
