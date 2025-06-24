@@ -1,7 +1,7 @@
 * Implementation Notes – Newtonian Gravity System
 
 ** Entity Design
-	 - (x) mass: f64
+	 - (x) mass: Option<f64> (supports massless particles)
 	 - (x) position: Vec2
 	 - (x) velocity: Vec2
 	 - (x) acceleration: Vec2

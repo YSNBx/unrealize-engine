@@ -1,0 +1,18 @@
+* 2025-06-24 – force abstraction finalization & massless entity setup
+
+** summary
+	 - renamed mass: f64 to mass: Option\<f64\> in Entity, preparing for massless objects (e.g. photons)
+	 - updated Entity::new() constructor to accept optional mass
+	 - modified all gravity logic to call .unwrap() on mass, assuming presence (will refactor later for safety)
+	 - validated that core Vec2, integration, and rendering logic is force-agnostic
+	 - discussed energy system refactoring; kept EnergyTracker for gravity-only for now
+	 - confirmed integration method (velocity verlet) is physically valid beyond gravity
+	 - prepared to move on to SpringForce as part of realistic physical interaction modeling
+
+** notes
+	 - Box\<dyn Force\> remains central to modular force layering
+	 - adding a SpringForce module will unlock simulation of bonds, molecules, and emergent patterns
+	 - integration and force application are generic enough to handle multi-force setups
+	 - confirmed most of entity.rs, vec2.rs, and rendering are not hardcoded to gravity
+	 - optional mass enables future modeling of photons, static fields, etc.
+	 - expand Entity with type tagging (e.g. EntityType::Photon, EntityType::Planet) and tags: HashSet\<String\>
