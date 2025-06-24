@@ -7,7 +7,6 @@ pub struct Camera {
   pub last_cursor_pos: Vec2,
   pub center: Vec2,
   pub scale: f64,
-  pub paused: bool,
 }
 
 impl Camera {
@@ -17,7 +16,6 @@ impl Camera {
       last_cursor_pos: Vec2::new(0.0, 0.0),
       center: Vec2::new(0.0, 0.0),
       scale: constants::INITIAL_SCALE,
-      paused: true,
     }
   }
 
@@ -41,13 +39,6 @@ impl Camera {
           MouseScrollDelta::PixelDelta(pos) => 1.1_f64.powf(pos.y / 100.0),
         };
         self.scale *= zoom;
-      }
-      WindowEvent::KeyboardInput { input, .. } => {
-        if let Some(winit::event::VirtualKeyCode::Space) = input.virtual_keycode {
-          if input.state == ElementState::Pressed {
-            self.paused = !self.paused;
-          }
-        }
       }
       _ => {}
     }

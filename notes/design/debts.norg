@@ -1,0 +1,4 @@
+* Debts
+
+	- ( ) energy.rs -> total_potential coupled to newtonian gravity
+	- (x) entity.rs -> self.acceleration.add() assumes mass-dependent objects

@@ -25,6 +25,7 @@ pub fn run_render_loop() {
 
   let initial_energy = tracker.total_energy(&entities);
   let entities_totals = logger::log_initial_energy(&tracker, &entities);
+  let mut drift = 0.0;
 
   event_loop.run(move |event, _, control_flow| {
     *control_flow = ControlFlow::Poll;
@@ -45,10 +46,14 @@ pub fn run_render_loop() {
 
       Event::RedrawRequested(_) => {
         advanced_integrate_step(&mut entities, &forces);
-        logger::log_drift(&entities, &tracker, &entities_totals);
+        // logger::log_drift(&entities, &tracker, &entities_totals);
 
         let total = tracker.total_energy(&entities);
-        logger::log("Total system energy", total, initial_energy);
+        let new_drift = (initial_energy - total).abs();
+        if new_drift > drift {
+          drift = new_drift;
+          logger::log("Total system energy", total, drift);
+        }
 
         draw::render_frame(pixels.frame_mut(), &mut entities, &camera, (size.width, size.height));
         pixels.render().unwrap();

@@ -8,12 +8,12 @@ pub struct EnergyBreakdown {
 }
 
 pub struct EnergyTracker {
-  pub g: f64,
+  pub gravity_constant: f64,
 }
 
 impl EnergyTracker {
-  pub fn new(g: f64) -> Self {
-    EnergyTracker { g }
+  pub fn new(gravity_constant: f64) -> Self {
+    EnergyTracker { gravity_constant }
   }
 
   pub fn total_kinetic(&self, entities: &[Entity]) -> f64 {
@@ -31,7 +31,7 @@ impl EnergyTracker {
         let a = &entities[i];
         let b = &entities[j];
         let r = b.position.sub(a.position).vec_length().max(0.01);
-        potential += -self.g * a.mass * b.mass / r;
+        potential += -self.gravity_constant * a.mass * b.mass / r;
       }
     }
     potential
@@ -51,7 +51,7 @@ impl EnergyTracker {
       for (j, b) in entities.iter().enumerate() {
         if i != j {
           let r = b.position.sub(a.position).vec_length().max(0.01);
-          potential += self.g * a.mass * b.mass / r;
+          potential += self.gravity_constant * a.mass * b.mass / r;
         }
       }
       potential *= 0.5;

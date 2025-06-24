@@ -1,7 +1,7 @@
 use crate::simulation::{energy::EnergyTracker, entity::Entity};
 
-pub fn log(message: &str, total: f64, initial: f64) {
-  println!("{} = {:.6}, Drift = {:.7}", message, total, initial - total); 
+pub fn log(message: &str, total: f64, drift: f64) {
+  println!("{} = {:.6}, Drift = {:.7}", message, total, drift); 
 }
 
 pub fn log_drift(

@@ -16,14 +16,18 @@
 
 	-- ( ) /Phase 3: Entity System/
 	--- ( ) Massless entities
-	--- (x) Static (immovable) entities
+	--- ( ) Static (immovable) entities
 	--- ( ) Spring-linked particles
-	--- ( ) Charge / type tags
+	--- ( ) Add enum EntityType { Planet, chargedParticle, Photon, ...}
+	--- ( ) Add optional tags: HashSet\<String\> or bitflags
+	--- ( ) Add massless logic in force application (skip acceleration)
+	--- ( ) Implement a basic SpringForce between entities (linked pairs)
+	--- ( ) Add a Charge field for electromagnetism
 
 	-- ( ) /Phase 4: Force Abstraction/
 	--- (x) Define Force trait
-	--- ( ) Plug-in force system via trait objects
-	--- ( ) Layer multiple forces
+	--- (x) Plug-in force system via trait objects
+	--- (x) Layer multiple forces
 
 	-- ( ) /Phase 5: Grid + Spacetime System/
 	--- ( ) 2D Grid representation

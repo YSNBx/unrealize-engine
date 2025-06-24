@@ -4,7 +4,7 @@ use super::vec2::Vec2;
 
 #[derive(Clone)]
 pub struct Entity {
-  pub mass: f64,
+  pub mass: Option<f64>,
   pub position: Vec2,
   pub velocity: Vec2,
   pub acceleration: Vec2,
@@ -14,7 +14,7 @@ pub struct Entity {
 }
 
 impl Entity {
-  pub fn new(mass: f64, position: [f64; 2], radius: f64) -> Self {
+  pub fn new(mass: Option<f64>, position: [f64; 2], radius: f64) -> Self {
     Entity {
       mass,
       position: Vec2::new(position[0], position[1]),
@@ -27,8 +27,10 @@ impl Entity {
   }
 
   pub fn apply_force(&mut self, force: Vec2) {
-    let acc = force.mul_scalar(1.0 / self.mass);
-    self.acceleration = self.acceleration.add(acc);
+    if self.mass.is_some() {
+      let acc = force.mul_scalar(1.0 / self.mass.unwrap());
+      self.acceleration = self.acceleration.add(acc);
+    }
   }
 
   pub fn integrate(&mut self, dt: f64, new_accel: Vec2) {
