@@ -6,7 +6,7 @@ pub struct Camera {
   pub dragging: bool,
   pub last_cursor_pos: Vec2,
   pub center: Vec2,
-  pub scale: f64,
+  pub scale: f64, 
 }
 
 impl Camera {

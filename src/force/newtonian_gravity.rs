@@ -13,13 +13,13 @@ impl NewtonianGravity {
 
 impl Force for NewtonianGravity {
   fn apply(&self, particles: &mut [Entity]) {
-    let num_particles = particles.len();
+    let num_entities = particles.len();
     for p in particles.iter_mut() {
       p.acceleration = Vec2::zero();
     }
 
-    for i in 0..num_particles {
-      for j in (i + 1)..num_particles {
+    for i in 0..num_entities {
+      for j in (i + 1)..num_entities {
         let (a, b) = {
           let (left, right) = particles.split_at_mut(j);
           (&mut left[i], &mut right[0])
@@ -34,8 +34,8 @@ impl Force for NewtonianGravity {
         if distance < min_dist {
           let v1n = a.velocity.dot(collision_normal);
           let v2n = b.velocity.dot(collision_normal);
-          let m1 = a.mass;
-          let m2 = b.mass;
+          let m1 = a.mass.unwrap();
+          let m2 = b.mass.unwrap();
 
           let v1n_prime = (v1n * (m1 - m2) + 2.0 * m2 * v2n) / (m1 + m2);
           let v2n_prime = (v2n * (m1 - m2) + 2.0 * m1 * v1n) / (m1 + m2);
@@ -53,7 +53,7 @@ impl Force for NewtonianGravity {
         }
 
         let r2 = distance * distance + self.softening * self.softening;
-        let force = collision_normal.mul_scalar(self.gravity_constant * a.mass * b.mass / r2);
+        let force = collision_normal.mul_scalar(self.gravity_constant * a.mass.unwrap() * b.mass.unwrap() / r2);
 
         if !a.static_body {
           a.apply_force(force);

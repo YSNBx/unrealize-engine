@@ -18,7 +18,7 @@ impl EnergyTracker {
 
   pub fn total_kinetic(&self, entities: &[Entity]) -> f64 {
     entities.iter().map(|p| {
-      0.5 * p.mass * (p.velocity.x * p.velocity.x + p.velocity.y * p.velocity.y)
+      0.5 * p.mass.unwrap() * (p.velocity.x * p.velocity.x + p.velocity.y * p.velocity.y)
     }).sum()
   }
 
@@ -31,7 +31,7 @@ impl EnergyTracker {
         let a = &entities[i];
         let b = &entities[j];
         let r = b.position.sub(a.position).vec_length().max(0.01);
-        potential += -self.gravity_constant * a.mass * b.mass / r;
+        potential += -self.gravity_constant * a.mass.unwrap() * b.mass.unwrap() / r;
       }
     }
     potential
@@ -45,13 +45,13 @@ impl EnergyTracker {
     let mut breakdowns = Vec::with_capacity(entities.len());
 
     for (i, a) in entities.iter().enumerate() {
-      let kinetic = 0.5 * a.mass * (a.velocity.x * a.velocity.x + a.velocity.y * a.velocity.y);
+      let kinetic = 0.5 * a.mass.unwrap() * (a.velocity.x * a.velocity.x + a.velocity.y * a.velocity.y);
 
       let mut potential = 0.0;
       for (j, b) in entities.iter().enumerate() {
         if i != j {
           let r = b.position.sub(a.position).vec_length().max(0.01);
-          potential += self.gravity_constant * a.mass * b.mass / r;
+          potential += self.gravity_constant * a.mass.unwrap() * b.mass.unwrap() / r;
         }
       }
       potential *= 0.5;

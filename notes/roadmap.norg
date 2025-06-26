@@ -16,7 +16,7 @@
 
 	-- ( ) /Phase 3: Entity System/
 	--- ( ) Massless entities
-	--- ( ) Static (immovable) entities
+	--- (x) Static (immovable) entities
 	--- ( ) Spring-linked particles
 	--- ( ) Add enum EntityType { Planet, chargedParticle, Photon, ...}
 	--- ( ) Add optional tags: HashSet\<String\> or bitflags

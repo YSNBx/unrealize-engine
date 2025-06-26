@@ -9,6 +9,20 @@ pub fn world_to_screen(pos: Vec2, center: Vec2, scale: f64, width: u32, height: 
   (x, y)
 }
 
+/// Draws an entity to the framebuffer.
+///
+/// # Parameters
+/// - `f_buf`: The framebuffer buffer to draw to.
+/// - `width`: Width of the framebuffer.
+/// - `height`: Height of the framebuffer.
+/// - `x`, `y`: Coordinates to draw at.
+/// - `rad`: Radius of the entity.
+/// - `col`: RGBA color.
+///
+/// # Example
+/// ```
+/// draw_entity(&mut buffer, 800, 600, 10, 10, 5, [255, 0, 0, 255]);
+/// ```
 pub fn draw_entity(f_buf: &mut [u8], width: u32, height: u32, x: i32, y: i32, rad: i32, col: [u8; 4]) {
   for dy in -rad..=rad {
     for dx in -rad..=rad {
@@ -28,16 +42,16 @@ pub fn draw_entity(f_buf: &mut [u8], width: u32, height: u32, x: i32, y: i32, ra
 
 pub fn get_entity_color(index: usize) -> [u8; 4] {
   match index {
-    0 => [255, 255, 0, 255],
-    1 => [200, 200, 200, 255],
-    2 => [255, 165, 0, 255],
-    3 => [0, 0, 255, 255],
+    0 => [255, 255, 0, 255],   // Sun - Yellow
+    1 => [200, 200, 200, 255], // Mercury - Light Gray
+    2 => [255, 165, 0, 255],   // Venus - Orange
+    3 => [0, 0, 255, 255],     // Earth - Blue
     4 => [255, 0, 0, 255],     // Mars – Red
     5 => [255, 215, 0, 255],   // Jupiter – Gold
     6 => [210, 180, 140, 255], // Saturn – Tan
     7 => [0, 255, 255, 255],   // Uranus – Cyan
     8 => [0, 0, 128, 255],     // Neptune – Navy
-    _ => [255, 255, 255, 255], // Fallback – White}
+    _ => [255, 255, 255, 255], // Fallback – White
   }
 }
 
@@ -97,7 +111,7 @@ pub fn render_frame(frame_buffer: &mut [u8],
     }
   }
 
-  for (i, p) in entity.iter().enumerate().skip(1) {
+  for (_i, p) in entity.iter().enumerate().skip(1) {
     let sun_pos = entity[0].position;
     let orbit_radius = (p.position.sub(sun_pos)).vec_length();
     draw_orbit_circle(
